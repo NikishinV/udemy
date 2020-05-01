@@ -23,4 +23,3 @@ appData.expenses.expensesName2 = expensesCost2;
 
 
 console.log("Ваш бюджет на один день: " + appData.budget/30);
-console.log(appData.expenses);

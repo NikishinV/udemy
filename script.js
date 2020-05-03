@@ -1,7 +1,16 @@
+let money, time, optExp;
 
 
-let money = +prompt("Ваш бюджет на месяц", "");
-let time = prompt("Введите дату в формате 'YYYY-MM-DD'", "");
+function start() {
+    money = +prompt("Ваш бюджет на месяц", "");
+    time = prompt("Введите дату в формате 'YYYY-MM-DD'", "");
+
+    while(isNaN(money) || money == "" || money == null){
+        money = +prompt("Ваш бюджет на месяц", "");
+    }
+}
+start();
+
 
 let appData = {
     budget: money,
@@ -9,10 +18,11 @@ let appData = {
     expenses: {},
     optionalExpenses: {},
     income: [],
-    savings: false
+    savings: true
 };
 
-for(let i = 0; i < 2; i++){
+function chooseExpenses() {
+    for(let i = 0; i < 2; i++){
     let expensesName = prompt("Введите обязательную статью расходов в этом месяце", "");
     let expensesCost = +prompt("Во сколько обойдется?", "");
 
@@ -25,6 +35,66 @@ for(let i = 0; i < 2; i++){
         i--;
     }
 }
+
+}
+
+chooseExpenses();
+
+
+function detectDayBudget() {
+    appData.moneyPerDay = (appData.budget / 30).toFixed();
+    alert("Ежидневный бюджет " + appData.moneyPerDay);
+}
+
+detectDayBudget();
+
+
+
+
+
+console.log("Ваш бюджет на один день: " + appData.budget/30);
+function checkSavings() {
+    if(appData.savings == true){
+        let save = +prompt("Какова сумма наеоплений?", ""),
+        percent = +prompt("Под какой процент?", "");
+
+        appData.monthIncome = save/100/12*percent;
+        alert("Доход в месяц с вашего депозита: " + appData.monthIncome);
+    }
+}
+checkSavings();
+
+
+function detectLevel() {
+    
+if (appData.moneyPerDay < 100) {
+    console.log ("Это минимальный уровень достатка!");
+} else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
+    console.log ("Это средний уровень достатка!");
+} else if (appData.moneyPerDay > 2000) {
+    console.log ("Это высокий уровень достатка!");
+} else {
+    console.log ("Произошла ошибка");
+}
+
+}
+
+detectLevel();
+
+function chooseOptExpenses() {
+    for( let i = 1; i < 4; i++){
+        optExp = prompt("Статья необязательных расходов");
+        appData.optionalExpenses[i] = optExp;
+    }
+    
+}
+
+chooseOptExpenses();
+
+
+
+
+
 
 // let i = 50;
 // while(i < 52){ 
@@ -61,6 +131,3 @@ for(let i = 0; i < 2; i++){
 //         i--;
 //     }
 // } while(i < 2);
-
-
-console.log("Ваш бюджет на один день: " + appData.budget/30);
